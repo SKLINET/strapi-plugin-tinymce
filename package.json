@@ -1,0 +1,45 @@
+{
+  "name": "@sklinet/strapi-plugin-tinymce",
+  "version": "1.0.0",
+  "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
+  "private": false,
+  "keywords": [
+    "strapi",
+    "tiinymce",
+    "tinymce 6",
+    "wysiwyg",
+    "rich text",
+    "editor"
+  ],
+  "strapi": {
+    "displayName": "TinyMCE",
+    "name": "tinymce",
+    "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
+    "kind": "plugin"
+  },
+  "dependencies": {
+    "@tinymce/tinymce-react": "4.2.0"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
+  "author": {
+    "name": "SKLINET s.r.o.",
+    "url": "https://github.com/SKLINET"
+  },
+  "maintainers": [
+    {
+      "name": "SKLINET s.r.o.",
+      "url": "https://github.com/SKLINET"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SKLINET/strapi-plugin-tinymce"
+  },
+  "engines": {
+    "node": ">=14.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
