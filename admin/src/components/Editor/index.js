@@ -8,6 +8,7 @@ import taskRequests from "../../api/settings";
 const TinyEditor = ({ onChange, name, value }) => {
     const [pluginConfig, setPluginConfig] = useState();
     const [apiKey, setApiKey] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getApiKey = async () => {
@@ -24,21 +25,25 @@ const TinyEditor = ({ onChange, name, value }) => {
                 setPluginConfig(editor);
             }
         };
-        getApiKey();
+        getApiKey().then(() => {
+            setLoading(false)
+        });
         getPluginConfig();
     }, []);
 
     return (
-        <Editor
-            apiKey={apiKey || ""}
-            value={value}
-            tagName={name}
-            onEditorChange={(editorContent) => {
-                onChange({ target: { name, value: editorContent } });
-            }}
-            outputFormat={pluginConfig?.outputFormat || "html"}
-            init={pluginConfig?.editorConfig}
-        />
+        !loading ?
+            <Editor
+                apiKey={apiKey || ""}
+                value={value}
+                tagName={name}
+                onEditorChange={(editorContent) => {
+                    onChange({ target: { name, value: editorContent } });
+                }}
+                outputFormat={pluginConfig?.outputFormat || "html"}
+                init={pluginConfig?.editorConfig}
+            />
+            : <></>
     );
 };
 TinyEditor.propTypes = {
