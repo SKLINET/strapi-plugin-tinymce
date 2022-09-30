@@ -114,7 +114,6 @@ Learn more about configuration from [official documentation](https://www.tiny.cl
 module.exports = ({ env }) => ({
     tinymce: {
         enabled: true,
-        resolve: "./src/plugins/tinymce",
         config: {
             editor: {
                 outputFormat: "html",
