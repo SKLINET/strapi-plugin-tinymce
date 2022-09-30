@@ -50,7 +50,7 @@ module.exports = () => ({
 ```
 
 You will also have to update strapi::security middleware in your middlewares.js file in config folder.
-If you didn't update this file yet, then replace "strapi::security" with following code
+If you didn't update this file yet, then replace "strapi::security" with following code (object)
 ```js
 //middlewares.js
 
@@ -94,7 +94,7 @@ or
 yarn build
 ```
 
-** After starting your project please add API key for your TinyMCE editor in admin panel in settings/tinymce/configuration **
+**After starting your project please add API key for your TinyMCE editor in admin panel in settings/tinymce/configuration**
 
 If TinyMCE editor doesn't appear in your richtext field, please check your console for any hints, you might have incorrectly set your middlewares.
 
