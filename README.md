@@ -49,6 +49,41 @@ module.exports = () => ({
 })
 ```
 
+You will also have to update strapi::security middleware in your middlewares.js file in config folder.
+If you didn't update this file yet, then replace "strapi::security" with following code (object)
+```js
+//middlewares.js
+
+ {
+    name: "strapi::security",
+    config: {
+      contentSecurityPolicy: {
+        directives: {
+          "script-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "https:"],
+          "connect-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "blob:"],
+          "img-src": [
+            "'self'",
+            "*.tinymce.com",
+            "*.tiny.cloud",
+            "data:",
+            "blob:",
+            "cdn.jsdelivr.net",
+            "strapi.io",
+            "s3.amazonaws.com",
+          ],
+          "style-src": [
+            "'self'",
+            "'unsafe-inline'",
+            "*.tinymce.com",
+            "*.tiny.cloud",
+          ],
+          "font-src": ["'self'", "*.tinymce.com", "*.tiny.cloud"],
+        },
+      },
+    },
+  },
+```
+
 Then run build:
 ```bash
 npm run build
@@ -58,6 +93,10 @@ or
 ```bash
 yarn build
 ```
+
+**After starting your project please add API key for your TinyMCE editor in admin panel in settings/tinymce/configuration**
+
+If TinyMCE editor doesn't appear in your richtext field, please check your console for any hints, you might have incorrectly set your middlewares.
 
 ## <a id="configuration"></a>⚙️ Configuration
 TinyMCE outputFormat should be defined in `config.editor`, and init object should be defined in `config.editor.editorConfig` field in `plugins.js` file.
@@ -75,7 +114,6 @@ Learn more about configuration from [official documentation](https://www.tiny.cl
 module.exports = ({ env }) => ({
     tinymce: {
         enabled: true,
-        resolve: "./src/plugins/tinymce",
         config: {
             editor: {
                 outputFormat: "html",
