@@ -32,7 +32,7 @@ const TinyEditor = ({ onChange, name, value }) => {
     }, []);
 
     return (
-        !loading ?
+        !loading && pluginConfig ?
             <Editor
                 apiKey={apiKey || ""}
                 value={value}
