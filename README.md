@@ -134,7 +134,7 @@ module.exports = ({ env }) => ({
                     toolbar:
                         "undo redo | styles | bold italic forecolor backcolor | \
                         alignleft aligncenter alignright alignjustify | \
-                        table emoticons visualblocks code|\
+                        media table emoticons visualblocks code|\
                         nonbreaking bullist numlist outdent indent | removeformat | help",
                     style_formats: [
                         {

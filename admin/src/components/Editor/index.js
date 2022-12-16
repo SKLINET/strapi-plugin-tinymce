@@ -4,11 +4,13 @@ import { Editor } from "@tinymce/tinymce-react";
 import { request } from "@strapi/helper-plugin";
 import pluginId from "../../pluginId";
 import taskRequests from "../../api/settings";
+import { prefixFileUrlWithBackendUrl } from "@strapi/helper-plugin";
 
 const TinyEditor = ({ onChange, name, value }) => {
     const [pluginConfig, setPluginConfig] = useState();
     const [apiKey, setApiKey] = useState("");
     const [loading, setLoading] = useState(true);
+    const uploadUrl = `${prefixFileUrlWithBackendUrl("/api/upload")}`;
 
     useEffect(() => {
         const getApiKey = async () => {
@@ -41,7 +43,27 @@ const TinyEditor = ({ onChange, name, value }) => {
                     onChange({ target: { name, value: editorContent } });
                 }}
                 outputFormat={pluginConfig?.outputFormat || "html"}
-                init={pluginConfig?.editorConfig}
+                init={{
+                    ...pluginConfig?.editorConfig,
+                    images_upload_handler: async (blobInfo) => {
+                      const formData = new FormData();
+                      formData.append("files", blobInfo.blob());
+                      await fetch(uploadUrl, {
+                        method: "POST",
+                        headers: {
+                          Authorization: "Bearer ",
+                        },
+                        body: formData,
+                      })
+                        .then((response) => {
+                          const result = response.json();
+                          console.log("result:", result);
+                        })
+                        .catch(function (err) {
+                          console.log("error:", err);
+                        });
+                    },
+                  }}
             />
             : <></>
     );
