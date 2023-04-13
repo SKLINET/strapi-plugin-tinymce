@@ -4,6 +4,7 @@ import pluginId from "./pluginId";
 import Initializer from "./components/Initializer";
 import Wysiwyg from "./components/Wysiwyg";
 import { getTrad } from "./utils";
+import pluginPermissions from "./permissions";
 
 const name = pluginPkg.strapi.name;
 
@@ -29,6 +30,7 @@ export default {
                     Component: async () => {
                         return import("./pages/Settings");
                     },
+                    permissions: pluginPermissions["settings"],
                 },
             ]
         );
