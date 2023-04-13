@@ -61,16 +61,17 @@ If you didn't update this file yet, then replace "strapi::security" with followi
         useDefaults: true,  
         directives: {
           "script-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "https:"],
-          "connect-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "blob:"],
+          "connect-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "blob:", "*.strapi.io"],
           "img-src": [
             "'self'",
             "*.tinymce.com",
             "*.tiny.cloud",
             "data:",
             "blob:",
-            "cdn.jsdelivr.net",
+            "dl.airtable.com",
             "strapi.io",
             "s3.amazonaws.com",
+            "cdn.jsdelivr.net",
           ],
           "style-src": [
             "'self'",
@@ -134,7 +135,7 @@ module.exports = ({ env }) => ({
                     toolbar:
                         "undo redo | styles | bold italic forecolor backcolor | \
                         alignleft aligncenter alignright alignjustify | \
-                        table emoticons visualblocks code|\
+                        media table emoticons visualblocks code|\
                         nonbreaking bullist numlist outdent indent | removeformat | help",
                     style_formats: [
                         {
