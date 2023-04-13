@@ -61,16 +61,17 @@ If you didn't update this file yet, then replace "strapi::security" with followi
         useDefaults: true,  
         directives: {
           "script-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "https:"],
-          "connect-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "blob:"],
+          "connect-src": ["'self'", "*.tinymce.com", "*.tiny.cloud", "blob:", "*.strapi.io"],
           "img-src": [
             "'self'",
             "*.tinymce.com",
             "*.tiny.cloud",
             "data:",
             "blob:",
-            "cdn.jsdelivr.net",
+            "dl.airtable.com",
             "strapi.io",
             "s3.amazonaws.com",
+            "cdn.jsdelivr.net",
           ],
           "style-src": [
             "'self'",
