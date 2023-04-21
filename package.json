@@ -1,6 +1,6 @@
 {
   "name": "@sklinet/strapi-plugin-tinymce",
-  "version": "1.0.5",
+  "version": "1.0.6`",
   "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
   "private": false,
   "keywords": [
@@ -38,7 +38,7 @@
     "url": "https://github.com/SKLINET/strapi-plugin-tinymce"
   },
   "engines": {
-    "node": ">=14.x.x <=16.x.x",
+    "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
