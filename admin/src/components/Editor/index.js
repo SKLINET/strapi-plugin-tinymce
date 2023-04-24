@@ -48,20 +48,15 @@ const TinyEditor = ({ onChange, name, value }) => {
                     images_upload_handler: async (blobInfo) => {
                       const formData = new FormData();
                       formData.append("files", blobInfo.blob());
-                      await fetch(uploadUrl, {
+                      const response = await fetch(uploadUrl, {
                         method: "POST",
                         headers: {
                           Authorization: "Bearer ",
                         },
                         body: formData,
                       })
-                        .then((response) => {
-                          const result = response.json();
-                          console.log("result:", result);
-                        })
-                        .catch(function (err) {
-                          console.log("error:", err);
-                        });
+                      const result = await response.json();
+                      return result[0].url;
                     },
                   }}
             />

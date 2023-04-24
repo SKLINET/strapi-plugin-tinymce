@@ -1,6 +1,6 @@
 {
   "name": "@sklinet/strapi-plugin-tinymce",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
   "private": false,
   "keywords": [
@@ -18,7 +18,7 @@
     "kind": "plugin"
   },
   "dependencies": {
-    "@tinymce/tinymce-react": "4.2.0"
+    "@tinymce/tinymce-react": "4.3.0"
   },
   "peerDependencies": {
     "@strapi/strapi": "^4.0.0"

@@ -4,10 +4,11 @@
 
 ## 👋 Intro
 
-* [Features](#features)
-* [Installation](#installation)
-* [Configuration](#configuration)
-* [Requirements](#requirements)
+- [👋 Intro](#-intro)
+- [✨ Key features](#-key-features)
+- [🔧 Installation](#-installation)
+- [⚙️ Configuration](#️-configuration)
+- [⚠️ Requirements](#️-requirements)
 
 ## <a id="features"></a>✨ Key features
 
@@ -172,6 +173,6 @@ module.exports = ({ env }) => ({
 ## <a id="requirements"></a>⚠️ Requirements
 Strapi **v4.x.x+**
 
-Node **14 - 16**
+Node **14 - 18**
 
 Tested on **v4.3.4**
