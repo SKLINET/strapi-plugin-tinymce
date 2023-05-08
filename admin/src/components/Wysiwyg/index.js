@@ -28,12 +28,15 @@ const Wysiwyg = ({
         let newValue = value ? value : "";
 
         assets.map((asset) => {
-            if (asset.mime.includes("image")) {
-                const imgTag = `<p><img src="${asset.url}" alt="${asset.alt}"></img></p>`;
-                newValue = `${newValue}${imgTag}`;
+            if (asset.mime.includes('image') && typeof window !== 'undefined') {
+                const imgTag = `<p><img src="${asset.url}" caption="${asset.caption}" alt="${asset.alternativeText}"/></p>`;
+                window.tinymce.activeEditor.insertContent(imgTag);
+                newValue = window.tinymce.activeEditor.getContent();
             }
-            if (asset.mime.includes("video")) {
+
+            if (asset.mime.includes("video") && typeof window !== 'undefined') {
                 const videoTag = `<video><source src="${asset.url}" alt="${asset.alt}"</source></video>`;
+                window.tinymce.activeEditor.insertContent(videoTag);
                 newValue = `${newValue}${videoTag}`;
             }
         });
