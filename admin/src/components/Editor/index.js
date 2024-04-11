@@ -5,6 +5,7 @@ import { request } from "@strapi/helper-plugin";
 import pluginId from "../../pluginId";
 import taskRequests from "../../api/settings";
 import { prefixFileUrlWithBackendUrl } from "@strapi/helper-plugin";
+import { getSetup } from "../../utils";
 
 const TinyEditor = ({ onChange, name, value }) => {
     const [pluginConfig, setPluginConfig] = useState();
@@ -45,6 +46,7 @@ const TinyEditor = ({ onChange, name, value }) => {
                 outputFormat={pluginConfig?.outputFormat || "html"}
                 init={{
                     ...pluginConfig?.editorConfig,
+                    setup: getSetup,
                     images_upload_handler: async (blobInfo) => {
                       const formData = new FormData();
                       formData.append("files", blobInfo.blob());
