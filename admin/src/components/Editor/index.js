@@ -33,10 +33,12 @@ const TinyEditor = ({ onChange, name, value }) => {
         getPluginConfig();
     }, []);
 
+    const sourceProps = apiKey ? { apiKey } : pluginConfig?.tinymceSrc ? { tinymceScriptSrc: pluginConfig.tinymceSrc } : {};
+
     return (
         !loading && pluginConfig ?
             <Editor
-                apiKey={apiKey || ""}
+                {...sourceProps}
                 value={value}
                 tagName={name}
                 onEditorChange={(editorContent) => {
