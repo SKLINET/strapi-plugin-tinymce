@@ -170,8 +170,8 @@ module.exports = ({ env }) => ({
 ```
 
 ## <a id="requirements"></a>⚠️ Requirements
-Strapi **v4.x.x+**
+Strapi **v5.x.x+**
 
-Node **14 - 16**
+Node **20**
 
-Tested on **v4.3.4**
+Tested on **v5.1.0**
