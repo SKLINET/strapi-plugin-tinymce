@@ -1,5 +1,6 @@
 {
     "settings.title": "TinyMCE",
+    "settings.description": "TinyMCE rich text editor",
     "settings.subtitle": "Úprava nastavení pluginu TinyMCE",
     "settings.content-title": "Nastavení klíče API pro editor TinyMCE.",
     "settings.save-button": "Uložit",

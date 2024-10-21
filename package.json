@@ -1,43 +1,90 @@
 {
-  "name": "@sklinet/strapi-plugin-tinymce",
-  "version": "1.0.9",
-  "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
-  "private": false,
-  "keywords": [
-    "strapi",
-    "tiinymce",
-    "tinymce 7",
-    "wysiwyg",
-    "rich text",
-    "editor"
-  ],
-  "strapi": {
-    "displayName": "TinyMCE",
-    "name": "tinymce",
+    "name": "@sklinet/strapi-plugin-tinymce",
+    "version": "1.1.0",
     "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
-    "kind": "plugin"
-  },
-  "dependencies": {
-    "@tinymce/tinymce-react": "5.0.1",
-    "tinymce-i18n": "^24.5.8"
-  },
-  "author": {
-    "name": "SKLINET s.r.o.",
-    "url": "https://github.com/SKLINET"
-  },
-  "maintainers": [
-    {
-      "name": "SKLINET s.r.o.",
-      "url": "https://github.com/SKLINET"
+    "keywords": [
+        "strapi",
+        "tiinymce",
+        "tinymce 7",
+        "wysiwyg",
+        "rich text",
+        "editor"
+    ],
+    "license": "MIT",
+    "author": {
+        "name": "SKLINET s.r.o.",
+        "url": "https://github.com/SKLINET"
+    },
+    "type": "commonjs",
+    "exports": {
+        "./package.json": "./package.json",
+        "./strapi-admin": {
+            "types": "./dist/admin/src/index.d.ts",
+            "source": "./admin/src/index.ts",
+            "import": "./dist/admin/index.mjs",
+            "require": "./dist/admin/index.js",
+            "default": "./dist/admin/index.js"
+        },
+        "./strapi-server": {
+            "types": "./dist/server/src/index.d.ts",
+            "source": "./server/src/index.ts",
+            "import": "./dist/server/index.mjs",
+            "require": "./dist/server/index.js",
+            "default": "./dist/server/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "strapi-plugin build",
+        "test:ts:back": "run -T tsc -p server/tsconfig.json",
+        "test:ts:front": "run -T tsc -p admin/tsconfig.json",
+        "verify": "strapi-plugin verify",
+        "watch": "strapi-plugin watch",
+        "watch:link": "strapi-plugin watch:link"
+    },
+    "dependencies": {
+        "@strapi/design-system": "^2.0.0-rc.11",
+        "@strapi/icons": "^2.0.0-rc.11",
+        "@tinymce/tinymce-react": "^5.1.1",
+        "react-intl": "^6.7.0"
+    },
+    "devDependencies": {
+        "@strapi/sdk-plugin": "^5.2.6",
+        "@strapi/strapi": "^5.0.1",
+        "@strapi/typescript-utils": "^5.0.1",
+        "@types/react": "^18.3.10",
+        "@types/react-dom": "^18.3.0",
+        "prettier": "^3.3.3",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.26.2",
+        "styled-components": "^6.1.13",
+        "typescript": "^5.6.2"
+    },
+    "peerDependencies": {
+        "@strapi/sdk-plugin": "^5.2.6",
+        "@strapi/strapi": "^5.0.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.26.2",
+        "styled-components": "^6.1.13"
+    },
+    "strapi": {
+        "displayName": "TinyMCE",
+        "name": "tinymce",
+        "description": "Replaces the default Strapi WYSIWYG editor with a customized build of TinyMCE editor.",
+        "kind": "plugin"
+    },
+    "maintainers": [
+        {
+            "name": "SKLINET s.r.o.",
+            "url": "https://github.com/SKLINET"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SKLINET/strapi-plugin-tinymce"
     }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SKLINET/strapi-plugin-tinymce"
-  },
-  "engines": {
-    "node": ">=14.19.1 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
 }
