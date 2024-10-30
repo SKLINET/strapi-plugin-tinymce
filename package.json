@@ -1,6 +1,6 @@
 {
     "name": "@sklinet/strapi-plugin-tinymce",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "description": "Strapi custom field with a customized build of TinyMCE richtext editor.",
     "keywords": [
         "strapi",
