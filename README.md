@@ -120,6 +120,7 @@ module.exports = ({ env }) => ({
         config: {
             editor: {
                 outputFormat: "html",
+                tinymceSrc: "/tinymce/tinymce.min.js", // USE WITH YOUR PUBLIC PATH TO TINYMCE LIBRARY FOR USING SELF HOSTED TINYMCE
                 editorConfig: {
                     language: "sk",
                     height: 500,
@@ -170,8 +171,8 @@ module.exports = ({ env }) => ({
 ```
 
 ## <a id="requirements"></a>⚠️ Requirements
-Strapi **v4.x.x+**
+Strapi **v5.x.x+**
 
-Node **14 - 16**
+Node **>= 20.x.x**
 
-Tested on **v4.3.4**
+Tested on **v5.1.1**
