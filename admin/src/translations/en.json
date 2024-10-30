@@ -1,5 +1,6 @@
 {
     "settings.title": "TinyMCE",
+    "settings.description": "TinyMCE rich text editor",
     "settings.subtitle": "Edit settings of your TinyMCE plugin",
     "settings.content-title": "Set API key for TinyMCE editor.",
     "settings.save-button": "Save",
