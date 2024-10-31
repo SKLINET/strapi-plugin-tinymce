@@ -13,7 +13,7 @@ export default {
         app.customFields.register({
             name: 'tinymce',
             pluginId: PLUGIN_ID,
-            type: 'string',
+            type: 'richtext',
             icon: PluginIcon,
             intlLabel: {
                 id: getTranslation('settings.title'),
