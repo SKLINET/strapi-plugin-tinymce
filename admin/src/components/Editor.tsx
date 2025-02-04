@@ -18,7 +18,7 @@ const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
     const [pluginConfig, setPluginConfig] = useState<any>(null);
     const [apiKey, setApiKey] = useState('');
     const [loading, setLoading] = useState(true);
-    const uploadUrl = prefixFileUrlWithBackendUrl('/api/upload');
+    const uploadUrl = prefixFileUrlWithBackendUrl('/api/upload', pluginConfig?.data?.defaultAdminDomain || '');
 
     useEffect(() => {
         const getApiKey = async () => {

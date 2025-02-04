@@ -1,4 +1,4 @@
-export const prefixFileUrlWithBackendUrl = (path: string) => {
+export const prefixFileUrlWithBackendUrl = (path: string, defaultDomain = 'http://localhost:1337') => {
   if (path?.startsWith('http')) {
     return path;
   }
@@ -7,6 +7,6 @@ export const prefixFileUrlWithBackendUrl = (path: string) => {
   if (url) {
     return url + path;
   } else {
-    return 'http://localhost:1337' + path;
+    return defaultDomain + path;
   }
 };
