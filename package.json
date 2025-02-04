@@ -1,6 +1,6 @@
 {
     "name": "@sklinet/strapi-plugin-tinymce",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Strapi custom field with a customized build of TinyMCE richtext editor.",
     "keywords": [
         "strapi",
@@ -42,8 +42,7 @@
         "test:ts:front": "run -T tsc -p admin/tsconfig.json",
         "verify": "strapi-plugin verify",
         "watch": "strapi-plugin watch",
-        "watch:link": "strapi-plugin watch:link",
-        "postinstall": "strapi-plugin build"
+        "watch:link": "strapi-plugin watch:link"
     },
     "dependencies": {
         "@strapi/design-system": "^2.0.0-rc.11",
