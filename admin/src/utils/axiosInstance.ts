@@ -5,7 +5,7 @@
 import axios, { AxiosRequestHeaders } from 'axios';
 
 const instance = axios.create({
-    baseURL: process.env.STRAPI_ADMIN_BACKEND_URL,
+    baseURL: process.env.STRAPI_ADMIN_BACKEND_URL || process.env.BACKEND_URL || 'http://localhost:1337',
 });
 
 instance.interceptors.request.use(
