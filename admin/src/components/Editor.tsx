@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import { useCallback, useEffect, useState } from 'react';
+import { Editor, IAllProps } from '@tinymce/tinymce-react';
 import { PLUGIN_ID } from '../pluginId';
 import taskRequests from '../api/settings';
 import { useFetchClient } from '@strapi/strapi/admin';
@@ -12,8 +12,10 @@ interface TinyEditorProps {
     disabled?: boolean;
 }
 
+type InitOptions = NonNullable<IAllProps['init']>;
+
 const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
-    const { get } = useFetchClient();
+    const { get, post } = useFetchClient();
 
     const [pluginConfig, setPluginConfig] = useState<any>(null);
     const [apiKey, setApiKey] = useState('');
@@ -39,6 +41,25 @@ const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
         getPluginConfig();
     }, []);
 
+    const imageUploadHandler = useCallback<NonNullable<InitOptions['images_upload_handler']>>(
+        async (blobInfo) => {
+            const data = new FormData();
+
+            data.append('files', blobInfo.blob(), blobInfo.filename());
+
+            try {
+                const res = await post<{ location: string }>(`/${PLUGIN_ID}/uploadImage`, data);
+
+                return res.data.location;
+            } catch (error) {
+                console.error('Image upload failed:', error);
+
+                throw error;
+            }
+        },
+        [post],
+    );
+
     return !loading && pluginConfig?.data ? (
         <Editor
             apiKey={apiKey || ''}
@@ -49,23 +70,8 @@ const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
                 onChange({ target: { name, value: editorContent } });
             }}
             init={{
+                images_upload_handler: imageUploadHandler,
                 ...pluginConfig?.data?.editorConfig,
-                images_upload_handler: async (blobInfo) => {
-                    const formData = new FormData();
-                    formData.append('files', blobInfo.blob());
-                    const response = await fetch(uploadUrl, {
-                        method: 'POST',
-                        headers: {
-                            Authorization: 'Bearer ',
-                        },
-                        body: formData,
-                    })
-                        .then((response) => response.json())
-                        .catch(function (err) {
-                            console.log('error:', err);
-                        });
-                    return response?.[0]?.url || '';
-                },
             }}
         />
     ) : (
