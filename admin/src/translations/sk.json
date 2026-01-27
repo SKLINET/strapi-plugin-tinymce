@@ -7,5 +7,6 @@
     "settings.input-title": "API kľúč",
     "settings.input-placeholder": "napr. eegrtg8464asnbvvvfasd46486asldaeerer45888areettzh",
     "settings.success-message": "Nastavenia boli úspešne uložené.",
-    "settings.page-title": "Konfigurácia"
+    "settings.page-title": "Konfigurácia",
+    "settings.hide-media-library": "Skryť tlačidlo Knižnica médií"
 }

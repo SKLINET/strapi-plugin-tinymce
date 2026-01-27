@@ -36,6 +36,15 @@ export default {
                         },
                         description: "You won't be able to create an entry if this field is empty",
                     },
+                    {
+                        type: 'checkbox',
+                        name: 'options.hideMediaLibrary',
+                        intlLabel: {
+                            id: getTranslation('settings.hide-media-library'),
+                            defaultMessage: 'Hide Media Library button',
+                        },
+                        description: 'Hide the Media Library button to prevent adding images through the editor',
+                    },
                 ],
             },
             components: {
