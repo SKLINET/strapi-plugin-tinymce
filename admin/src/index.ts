@@ -38,12 +38,12 @@ export default {
                     },
                     {
                         type: 'checkbox',
-                        name: 'options.hideMediaLibrary',
+                        name: 'options.disableMediaLibrary',
                         intlLabel: {
-                            id: getTranslation('settings.hide-media-library'),
-                            defaultMessage: 'Hide Media Library button',
+                            id: getTranslation('settings.disable-media-library'),
+                            defaultMessage: 'Disable Media Library',
                         },
-                        description: 'Hide the Media Library button to prevent adding images through the editor',
+                        description: 'Disable Media Library integration and prevent uploading images through the editor',
                     },
                 ],
             },

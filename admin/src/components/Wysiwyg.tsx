@@ -19,7 +19,7 @@ interface WysiwygProps {
 
 const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint, attribute }: WysiwygProps) => {
   const localized = Boolean(attribute?.pluginOptions?.i18n?.localized || false);
-  const hideMediaLibrary = Boolean(attribute?.options?.hideMediaLibrary || false);
+  const disableMediaLibrary = Boolean(attribute?.options?.disableMediaLibrary || false);
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
 
   const handleToggleMediaLib = () => setMediaLibVisible((prev) => !prev);
@@ -62,7 +62,7 @@ const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint
             )}
           </Flex>
         )}
-        {!hideMediaLibrary && (
+        {!disableMediaLibrary && (
           <Button
             startIcon={<Image/>}
             variant="secondary"
@@ -72,7 +72,7 @@ const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint
             Media library
           </Button>
         )}
-        <TinyEditor disabled={Boolean(disabled)} name={name} onChange={onChange} value={value}/>
+        <TinyEditor disabled={Boolean(disabled)} name={name} onChange={onChange} value={value} disableMediaLibrary={disableMediaLibrary}/>
         {(error || hint) && (
           <Box paddingTop={1}>
             {error ? (

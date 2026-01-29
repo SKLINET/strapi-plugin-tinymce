@@ -10,11 +10,12 @@ interface TinyEditorProps {
     name: string;
     value?: string;
     disabled?: boolean;
+    disableMediaLibrary?: boolean;
 }
 
 type InitOptions = NonNullable<IAllProps['init']>;
 
-const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
+const TinyEditor = ({ onChange, name, value, disabled, disableMediaLibrary }: TinyEditorProps) => {
     const { get, post } = useFetchClient();
 
     const [pluginConfig, setPluginConfig] = useState<any>(null);
@@ -70,7 +71,8 @@ const TinyEditor = ({ onChange, name, value, disabled }: TinyEditorProps) => {
                 onChange({ target: { name, value: editorContent } });
             }}
             init={{
-                images_upload_handler: imageUploadHandler,
+                ...(!disableMediaLibrary && { images_upload_handler: imageUploadHandler }),
+                ...(disableMediaLibrary && { paste_data_images: false }),
                 ...pluginConfig?.data?.editorConfig,
             }}
         />
