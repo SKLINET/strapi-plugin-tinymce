@@ -1,10 +1,10 @@
 import React from 'react';
-import { prefixFileUrlWithBackendUrl } from '../utils/prefixFileUrlWithBackendUrl';
 import { useStrapiApp } from '@strapi/strapi/admin';
+import { toEditorAsset, type EditorAsset, type MediaLibraryFile } from '../utils/toEditorAsset';
 
 interface MediaLibProps {
     isOpen?: boolean;
-    onChange?: (e: any) => void;
+    onChange?: (assets: EditorAsset[]) => void;
     onToggle?: () => void;
 }
 
@@ -12,15 +12,8 @@ const MediaLib = ({ isOpen, onChange, onToggle }: MediaLibProps) => {
     const mediaLibraryDialog = useStrapiApp('mediaLibrary', (state: any) => state.components);
     const MediaDialog = mediaLibraryDialog['media-library'];
 
-
-    const handleSelectAssets = (files: any) => {
-        const formattedFiles = files.map((f: any) => ({
-            alt: f.alternativeText || f.name,
-            url: prefixFileUrlWithBackendUrl(f.url),
-            mime: f.mime,
-        }));
-
-        if (onChange) onChange(formattedFiles);
+    const handleSelectAssets = (files: MediaLibraryFile[]) => {
+        if (onChange) onChange(files.map(toEditorAsset));
     };
 
     if (!isOpen) {

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Button, Flex, Typography } from '@strapi/design-system';
 import { Earth, Image } from '@strapi/icons';
 import TinyEditor from './Editor';
 import MediaLib from './MediaLib';
+import UploadAsset from './UploadAsset';
+import type { EditorAsset } from '../utils/toEditorAsset';
 
 interface WysiwygProps {
   disabled?: boolean;
@@ -21,13 +23,17 @@ const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint
   const localized = Boolean(attribute?.pluginOptions?.i18n?.localized || false);
   const disableMediaLibrary = Boolean(attribute?.options?.disableMediaLibrary || false);
   const [mediaLibVisible, setMediaLibVisible] = useState(false);
+  // Uploads report their files one by one, faster than the form re-renders with the
+  // new value, so each insert builds on the latest value rather than the rendered one.
+  const latestValue = useRef(value);
+  latestValue.current = value;
 
   const handleToggleMediaLib = () => setMediaLibVisible((prev) => !prev);
 
-  const handleChangeAssets = (assets: any) => {
-    let newValue = value ? value : "";
+  const insertAssets = (assets: EditorAsset[]) => {
+    let newValue = latestValue.current ? latestValue.current : "";
 
-    assets.map((asset: any) => {
+    assets.map((asset) => {
       if (asset.mime.includes("image")) {
         const imgTag = `<p><img src="${asset.url}" alt="${asset.alt}"></img></p>`;
         newValue = `${newValue}${imgTag}`;
@@ -38,7 +44,12 @@ const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint
       }
     });
 
+    latestValue.current = newValue;
     onChange({ target: {name, value: newValue } });
+  };
+
+  const handleChangeAssets = (assets: EditorAsset[]) => {
+    insertAssets(assets);
     handleToggleMediaLib();
   };
 
@@ -63,14 +74,21 @@ const Wysiwyg = ({ name, onChange, value, label, disabled, error, required, hint
           </Flex>
         )}
         {!disableMediaLibrary && (
-          <Button
-            startIcon={<Image/>}
-            variant="secondary"
-            fullWidth
-            onClick={handleToggleMediaLib}
-          >
-            Media library
-          </Button>
+          <Flex gap={2} paddingBottom={2}>
+            <Box flex={1}>
+              <Button
+                startIcon={<Image/>}
+                variant="secondary"
+                fullWidth
+                onClick={handleToggleMediaLib}
+              >
+                Media library
+              </Button>
+            </Box>
+            <Box flex={1}>
+              <UploadAsset disabled={Boolean(disabled)} onUpload={insertAssets}/>
+            </Box>
+          </Flex>
         )}
         <TinyEditor disabled={Boolean(disabled)} name={name} onChange={onChange} value={value} disableMediaLibrary={disableMediaLibrary}/>
         {(error || hint) && (
