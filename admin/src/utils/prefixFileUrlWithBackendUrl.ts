@@ -8,7 +8,7 @@ export const prefixFileUrlWithBackendUrl = (
     }
 
     if (url) {
-        return url + path;
+        return `${url.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
     } else {
         return path;
     }
