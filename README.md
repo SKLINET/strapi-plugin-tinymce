@@ -109,7 +109,22 @@ TinyMCE outputFormat should be defined in `config.editor`, and init object shoul
 **`plugins.js` file should be placed in `config` folder.**
 
 
-Learn more about configuration from [official documentation](https://www.tiny.cloud/docs/tinymce/6/).
+Learn more about configuration from [official documentation](https://www.tiny.cloud/docs/tinymce/8/).
+
+### TinyMCE 8
+
+The plugin uses TinyMCE 8. Without `tinymceSrc` the editor is loaded from Tiny Cloud with your API key.
+
+To self-host the editor, serve the `tinymce` package from your public folder and point `tinymceSrc` to it:
+
+* copy `node_modules/tinymce` to e.g. `public/tinymce`,
+* copy the language packs from `node_modules/tinymce-i18n/langs8` to `public/tinymce/langs` (TinyMCE 7 used `langs7`),
+* set `license_key` in `editorConfig` (`"gpl"` for the open source licence, or your commercial key). A self-hosted
+  TinyMCE 8 editor without a licence key is disabled.
+
+When upgrading from TinyMCE 7, remove `forced_root_block: ""` from your `editorConfig`. An empty value is not valid
+and TinyMCE 8 logs a warning for it. See the
+[migration guide](https://www.tiny.cloud/docs/tinymce/8/migration-from-7x/) for other changes.
 
 **Default configuration:**
 ```js
@@ -122,11 +137,11 @@ module.exports = ({ env }) => ({
                 outputFormat: "html",
                 tinymceSrc: "/tinymce/tinymce.min.js", // USE WITH YOUR PUBLIC PATH TO TINYMCE LIBRARY FOR USING SELF HOSTED TINYMCE
                 editorConfig: {
+                    license_key: "gpl", // REQUIRED FOR SELF HOSTED TINYMCE
                     language: "sk",
                     height: 500,
                     menubar: false,
                     extended_valid_elements: "span, img, small",
-                    forced_root_block: "",
                     convert_urls: false,
                     entity_encoding: "raw",
                     plugins:
