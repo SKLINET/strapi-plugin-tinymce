@@ -109,7 +109,44 @@ TinyMCE outputFormat should be defined in `config.editor`, and init object shoul
 **`plugins.js` file should be placed in `config` folder.**
 
 
-Learn more about configuration from [official documentation](https://www.tiny.cloud/docs/tinymce/6/).
+Learn more about configuration from [official documentation](https://www.tiny.cloud/docs/tinymce/8/).
+
+### TinyMCE 8
+
+The plugin uses TinyMCE 8. Without `tinymceSrc` the editor is loaded from Tiny Cloud with your API key.
+
+To self-host the editor, serve the `tinymce` package from your public folder and point `tinymceSrc` to it:
+
+* copy `node_modules/tinymce` to e.g. `public/tinymce`,
+* copy the language packs from `node_modules/tinymce-i18n/langs8` to `public/tinymce/langs`,
+* set `license_key: "gpl"` in `editorConfig` to use TinyMCE under its open source licence. A self-hosted TinyMCE 8
+  editor without a licence key is disabled.
+
+Both packages are installed with the plugin. If your project has its own `tinymce` or `tinymce-i18n` dependency, make
+sure it is version 8 (`tinymce`) and 26 or newer (`tinymce-i18n`), otherwise the old version is copied.
+
+A commercial licence key does not work with the `tinymce` package from npm, because it does not contain the licence
+key manager. Use the self-hosted bundle from your Tiny account instead.
+
+#### Upgrading from TinyMCE 7
+
+* **Replace the copied editor files.** The browser loads the copy in your public folder, so a project that only
+  updates the plugin keeps running TinyMCE 7. Copy `node_modules/tinymce` again and check that
+  `tinymce.majorVersion` in the browser console is `8`.
+* **Use `langs8` instead of `langs7`.** Language packs with a region are now named with a hyphen (`fr_FR` is
+  `fr-FR`, `pt_BR` is `pt-BR`, `zh_CN` is `zh-CN`), so update `language` in `editorConfig` to match the file name.
+  Some packs no longer exist. A missing pack leaves the editor in English.
+* **Add `license_key`** if your self-hosted `editorConfig` does not have it yet.
+* **Remove `forced_root_block: ""`** from `editorConfig`. An empty value is not valid and TinyMCE logs a warning.
+* **A disabled editor** is now controlled by the plugin. The field is read-only when Strapi disables it or when
+  `editorConfig.disabled` is `true`.
+* **Check existing content for HTML comments and `<noscript>`.** TinyMCE 8 sanitizes HTML more strictly. Compared
+  with 7.9.3, version 8.11.0 removes comments that contain HTML tags (`<!-- <div>old</div> -->`, conditional
+  comments such as `<!--[if mso]>`) and the content of `<noscript>`. The editor cleans content when it loads it,
+  so these parts are lost the next time an entry is opened and saved. Plain text comments, iframes, embed scripts,
+  forms, SVG and attributes came out the same in both versions. If editors paste their own HTML, search the
+  content for `<!--` and `<noscript` before you upgrade.
+* See the [migration guide](https://www.tiny.cloud/docs/tinymce/8/migration-from-7x/) for other changes.
 
 **Default configuration:**
 ```js
@@ -122,11 +159,11 @@ module.exports = ({ env }) => ({
                 outputFormat: "html",
                 tinymceSrc: "/tinymce/tinymce.min.js", // USE WITH YOUR PUBLIC PATH TO TINYMCE LIBRARY FOR USING SELF HOSTED TINYMCE
                 editorConfig: {
+                    license_key: "gpl", // REQUIRED FOR SELF HOSTED TINYMCE
                     language: "sk",
                     height: 500,
                     menubar: false,
                     extended_valid_elements: "span, img, small",
-                    forced_root_block: "",
                     convert_urls: false,
                     entity_encoding: "raw",
                     plugins:

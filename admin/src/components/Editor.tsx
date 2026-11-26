@@ -67,6 +67,8 @@ const TinyEditor = ({ onChange, name, value, disabled, disableMediaLibrary }: Ti
             tinymceScriptSrc={pluginConfig?.data?.tinymceSrc || undefined}
             value={value}
             tagName={name}
+            // tinymce-react 6 takes `disabled` only from this prop and overrides `init.disabled` with it.
+            disabled={Boolean(disabled || pluginConfig?.data?.editorConfig?.disabled)}
             onEditorChange={(editorContent) => {
                 onChange({ target: { name, value: editorContent } });
             }}
