@@ -140,11 +140,12 @@ key manager. Use the self-hosted bundle from your Tiny account instead.
 * **Remove `forced_root_block: ""`** from `editorConfig`. An empty value is not valid and TinyMCE logs a warning.
 * **A disabled editor** is now controlled by the plugin. The field is read-only when Strapi disables it or when
   `editorConfig.disabled` is `true`.
-* **Check existing content with embedded code.** TinyMCE 8 sanitizes HTML more strictly, for example it no longer
-  keeps comments or attribute values that contain HTML-like text. The editor cleans content when it loads it, so
-  such parts are removed the next time an entry is opened and saved. Before you upgrade a project where editors
-  paste their own HTML (embeds, scripts, a permissive `valid_elements` or `extended_valid_elements`), open a few
-  such entries on a test environment and compare the HTML before and after saving.
+* **Check existing content for HTML comments and `<noscript>`.** TinyMCE 8 sanitizes HTML more strictly. Compared
+  with 7.9.3, version 8.11.0 removes comments that contain HTML tags (`<!-- <div>old</div> -->`, conditional
+  comments such as `<!--[if mso]>`) and the content of `<noscript>`. The editor cleans content when it loads it,
+  so these parts are lost the next time an entry is opened and saved. Plain text comments, iframes, embed scripts,
+  forms, SVG and attributes came out the same in both versions. If editors paste their own HTML, search the
+  content for `<!--` and `<noscript` before you upgrade.
 * See the [migration guide](https://www.tiny.cloud/docs/tinymce/8/migration-from-7x/) for other changes.
 
 **Default configuration:**
